@@ -1,0 +1,124 @@
+---
+import { getImage } from 'astro:assets';
+import backgroundSource from '../assets/boston-dewey-square.jpg';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Kyle McCormick's personal website" } = Astro.props;
+
+// The original is a ~900KB JPEG - re-encode it smaller at build time. It's a
+// CSS background (not an <img>), so it goes through getImage() rather than
+// the <Image /> component, and its URL is handed to the CSS as a variable.
+const background = await getImage({ src: backgroundSource, format: 'webp', width: 2000 });
+
+const navLinks = [
+	{ href: '/', label: 'home' },
+	{ href: '/about/', label: 'about' },
+	{ href: 'https://github.com/kdmccormick', label: 'github' },
+	{ href: 'https://linkedin.com/in/kdmccormick96', label: 'linkedin' },
+];
+
+// Trailing slash normalized so /about and /about/ both match.
+const currentPath = Astro.url.pathname.replace(/\/?$/, '/');
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="preload" as="image" href={background.src} />
+	</head>
+	<body style={`--background-image: url(${background.src})`}>
+		<header>
+			<nav aria-label="Main">
+				<ul>
+					{
+						navLinks.map(({ href, label }) => (
+							<li>
+								<a href={href} aria-current={href === currentPath ? 'page' : undefined}>
+									{label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<slot />
+		</main>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--color-text: #d0dbed; /* airy light blue */
+		--color-accent: #e8d887; /* yellow from the millennium tower crown */
+		--color-background: #433;
+		--header-height: 2.5rem;
+		--gutter: clamp(1rem, 5vw, 2.5rem);
+		color-scheme: dark;
+	}
+
+	body {
+		margin: 0;
+		font: 18px/1.5 system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
+		color: var(--color-text);
+		background: var(--color-background) var(--background-image) no-repeat right 0 top var(--header-height) / cover;
+	}
+
+	h1,
+	h2,
+	h3 {
+		line-height: 1.2;
+	}
+
+	a {
+		color: inherit;
+	}
+
+	a:hover,
+	a:focus-visible {
+		color: var(--color-accent);
+	}
+</style>
+
+<style>
+	header {
+		block-size: var(--header-height);
+		padding-inline: var(--gutter);
+		display: flex;
+		align-items: center;
+	}
+
+	nav ul {
+		display: flex;
+		gap: 0 2rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	nav a {
+		text-decoration: none;
+	}
+
+	nav a:hover,
+	nav a:focus-visible,
+	nav a[aria-current='page'] {
+		text-decoration: underline;
+	}
+
+	main {
+		max-inline-size: 650px;
+		margin: var(--header-height) var(--gutter);
+		padding: 0.5rem 1rem;
+		background-color: #433c;
+	}
+</style>
