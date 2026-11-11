@@ -10,7 +10,7 @@ a learning management system (LMS) originally developed for the
 [MITx](https://mitxonline.mit.edu/) and edX initiatives,
 now used by thousands of education websites
 and self-governed by a global community of developers and users.
-To faciliate the project's continued growth, my current focus is
+To facilitate the project's continued growth, my current focus is
 modernization of the platform's backend and the strengthening of its developer APIs.
 Before Open edX, I focused on formal verification and programming language translation;
 from that experience, I've taken an appreciation for rich type systems, immutability, and
@@ -26,9 +26,9 @@ If you have an exciting idea for a record or event and want to collaborate, get 
 
 I value complexity, challenge, novelty, and kindness.
 I am fortunate to be able to get around my community by bicycle and public transit,
-I and care that others are able to do the same safely.
+and I care that others are able to do the same safely.
 I participate in both [effective](https://www.effectivealtruism.org/) and ineffective altruism.
 I enjoy programming language theory, mathematics, and philosophy,
 and I particularly enjoy musing on what it means
-to exist as willful agents in universe governed by deterministic physical laws.
+to exist as willful agents in a universe governed by deterministic physical laws.
 I love sport climbing and can be frequently found at Bouldering Project Boston (say hi if you see me!).
