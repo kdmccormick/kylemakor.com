@@ -1,3 +1,38 @@
 [build]
   command   = "npm run build"
   publish   = "dist"
+
+# Old domain - forward every path to the same path on the new one. kylemccormick.me
+# (and its www) are domain aliases of this Netlify site, so its requests hit
+# these rules; force = true makes them win even when a file exists at the
+# path. Both schemes are listed so plain-http visits take one hop, not two.
+
+[[redirects]]
+  from   = "https://kylemccormick.me/*"
+  to     = "https://www.kylemakor.com/:splat"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "http://kylemccormick.me/*"
+  to     = "https://www.kylemakor.com/:splat"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "https://www.kylemccormick.me/*"
+  to     = "https://www.kylemakor.com/:splat"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "http://www.kylemccormick.me/*"
+  to     = "https://www.kylemakor.com/:splat"
+  status = 301
+  force  = true
+
+# The old hand-rolled site served this page as a file; it's /about/ now.
+[[redirects]]
+  from   = "/about.html"
+  to     = "/about/"
+  status = 301
